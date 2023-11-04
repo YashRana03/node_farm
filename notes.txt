@@ -1,0 +1,7 @@
+So basically:
+
+1- Synchronous: blocks the following code until the current line is not  finished executing.
+
+2- Asynchronous instruction: Keeps running in the background but allows execution the following lines. When the task in the background is complete the callback function will be called.
+
+
