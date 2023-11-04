@@ -25,6 +25,8 @@ const fs = require("fs")
 const http = require("http")
 const url = require("url")
 
+const replaceTemplate = require("./modules/replaceTemplate")
+
 // Reading the products data from file 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8")
 const productData = JSON.parse(data) // Converts JSON string into a javascript code
@@ -33,25 +35,6 @@ const productData = JSON.parse(data) // Converts JSON string into a javascript c
 const cardTemplate = fs.readFileSync(`${__dirname}/templates/card-template.html`, "utf-8")
 const overviewTemplate = fs.readFileSync(`${__dirname}/templates/overview-template.html`, "utf-8")
 const productTemplate = fs.readFileSync(`${__dirname}/templates/product-template.html`, "utf-8")
-
-
-const replaceTemplate = (template, card) => {
-    let output = template.replace(/{%PRODUCTNAME%}/g, card.productName)
-    output = output.replace(/{%IMAGE%}/g, card.image)
-    output = output.replace(/{%PRICE%}/g, card.price)
-    output = output.replace(/{%FROM%}/g, card.from)
-    output = output.replace(/{%NUTRIENTS%}/g, card.nutrients)
-    output = output.replace(/{%QUANTITY%}/g, card.quantity)
-    output = output.replace(/{%DESCRIPTION%}/g, card.description)
-    output = output.replace(/{%ID%}/g, card.id)
-
-
-    if(!card.organic) {
-        output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic")
-    }
-    return output
-
-}
 
 //Creating a server which will call the call back function whenever a new request is received
 const server = http.createServer((req, res) => {
